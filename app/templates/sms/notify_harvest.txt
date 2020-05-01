@@ -1,0 +1,1 @@
+Dear {{ user.username }}, harvest date is approaching. It is currently {{ game_date }} in game time, which means it is {{ time_remaining }} (real time) until harvest date. - MyTractor.Romp.Network

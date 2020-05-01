@@ -9,7 +9,6 @@ from app.main.forms import EditProfileForm, PostForm, SearchForm, MessageForm
 from app.models import User, Post, Message, Notification
 from app.translate import translate
 from app.main import bp
-from app.harvest import *
 
 @bp.before_app_request
 def before_request():
@@ -196,13 +195,6 @@ def messages():
         if messages.has_prev else None
     return render_template('messages.html', messages=messages.items,
                            next_url=next_url, prev_url=prev_url)
-@bp.route('/harvesttimer')
-@login_required
-def harvesttimer():
-    current_date = get_harvest_date()
-    notify_subs()
-    sched_notices()
-    return render_template('harvesttimer.html', harvest_counter=current_date)
 
 @bp.route('/links')
 @login_required
