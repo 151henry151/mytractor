@@ -9,6 +9,7 @@ from app.email import send_email
 from app.sms import send_text
 from app.harvest import game_date, time_until_harvest
 from datetime import timedelta
+import schedule
 
 app = create_app()
 app.app_context().push()
