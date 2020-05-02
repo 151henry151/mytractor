@@ -100,7 +100,7 @@ def text_subscribers():
                   auth_token=app.config['TWILIO_TOKEN'])
 
 
-def launch_schedule()
+def launch_schedule():
     schedule.every(10).minutes.do(check_if_time_to_launch)
 
 
