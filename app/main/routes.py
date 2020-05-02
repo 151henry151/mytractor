@@ -9,6 +9,7 @@ from app.main.forms import EditProfileForm, PostForm, SearchForm, MessageForm
 from app.models import User, Post, Message, Notification
 from app.translate import translate
 from app.main import bp
+from app.newsletter import launch_schedule
 
 @bp.before_app_request
 def before_request():
@@ -200,6 +201,12 @@ def messages():
 @login_required
 def links():
     return render_template('links.html')
+
+@bp.route('/activate')
+@login_required
+def activate():
+    launch_schedule()
+    return redirect(url_for('main.index'))
 
 @bp.route('/export_posts')
 @login_required

@@ -3,7 +3,7 @@ from app.harvest import game_date, time_until_harvest
 from datetime import timedelta
 import schedule
 from app.email import send_email
-
+import time
 
 def get_subscribers():
     subscribers = []
@@ -51,21 +51,26 @@ def text_subscribers():
 
 def launch_schedule():
     schedule.every(1).minutes.do(check_if_time_to_schedule_notices)
-    schedule.run_pending()
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
 
 def check_if_time_to_schedule_notices():
+
     launch_delay = timedelta(minutes = 30)
     time_remaining = time_until_harvest()
     if time_remaining <= launch_delay:
         send_text(text_body='Schedule launching',
-                  recipient=app.config[ADMIN_PHONE])
+                  recipient=app.config['ADMIN_PHONE'])
         return schedule.CancelJob
         schedule_notices()
     else:
         send_text(text_body='Schedule launcher checked and it is not time to launch the schedule yet.',
-                  recipient=app.config[ADMIN_PHONE])
+                  recipient=app.config['ADMIN_PHONE'])
 
 def schedule_notices():
     schedule.every(60).hours.do(email_subscribers)
     schedule.every(60).hours.do(text_subscribers)
-    schedule.run_pending()
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
