@@ -4,6 +4,7 @@ from datetime import timedelta
 import schedule
 from app.email import send_email
 import time
+from flask import current_app
 
 def get_subscribers():
     subscribers = []
@@ -29,7 +30,7 @@ def email_subscribers():
         game_time = game_date().strftime("%d %b")
         time_left = str(time_until_harvest())
         send_email('[MyTractor] Harvest Notifier',
-            sender=app.config['ADMINS'][0], recipients=[user.email],
+            sender=current_app.config['ADMINS'][0], recipients=[user.email],
             text_body=render_template('email/email_subscribers.txt',
             user=user, game_date=game_time, time_until_harvest=time_left),
             html_body=render_template('email/email_subscribers.html',
@@ -61,12 +62,12 @@ def check_if_time_to_schedule_notices():
     time_remaining = time_until_harvest()
     if time_remaining <= launch_delay:
         send_text(text_body='Schedule launching',
-                  recipient=app.config['ADMIN_PHONE'])
+                  recipient=current_app.config['ADMIN_PHONE'])
         return schedule.CancelJob
         schedule_notices()
     else:
         send_text(text_body='Schedule launcher checked and it is not time to launch the schedule yet.',
-                  recipient=app.config['ADMIN_PHONE'])
+                  recipient=current_app.config['ADMIN_PHONE'])
 
 def schedule_notices():
     schedule.every(60).hours.do(email_subscribers)

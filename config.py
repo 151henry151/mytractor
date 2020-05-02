@@ -22,4 +22,6 @@ class Config(object):
     ELASTICSEARCH_URL = os.environ.get('ELASTICSEARCH_URL')
     REDIS_URL = os.environ.get('REDIS_URL') or 'redis://'
     POSTS_PER_PAGE = 25
-    ADMIN_PHONE = ['18024581128']
+    TWILIO_SID = os.environ.get('TWILIO_SID')
+    TWILIO_TOKEN = os.environ.get('TWILIO_TOKEN')
+    ADMIN_PHONE = os.environ.get('ADMIN_PHONE')

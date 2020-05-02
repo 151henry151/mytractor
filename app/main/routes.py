@@ -206,7 +206,7 @@ def links():
 @login_required
 def activate():
     launch_schedule()
-    return redirect(url_for('main.index'))
+    return redirect(url_for('main.user', username=current_user.username))
 
 @bp.route('/export_posts')
 @login_required
