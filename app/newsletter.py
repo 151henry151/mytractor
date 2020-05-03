@@ -56,8 +56,8 @@ def launch_schedule():
         schedule.run_pending()
         time.sleep(1)
 
-def check_if_time_to_schedule_notices():
 
+def check_if_time_to_schedule_notices():
     launch_delay = timedelta(minutes = 30)
     time_remaining = time_until_harvest()
     if time_remaining <= launch_delay:
@@ -68,6 +68,7 @@ def check_if_time_to_schedule_notices():
     else:
         send_text(text_body='Schedule launcher checked and it is not time to launch the schedule yet.',
                   recipient=current_app.config['ADMIN_PHONE'])
+
 
 def schedule_notices():
     schedule.every(60).hours.do(email_subscribers)

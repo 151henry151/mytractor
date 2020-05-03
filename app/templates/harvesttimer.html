@@ -1,7 +1,0 @@
-{% extends "base.html" %}
-
-{% block app_content %}
-<h1>{{ _('The current in-game date is: ') }} {{ harvest_counter }}</h1>
-<h2>{{ _('The harvest typically happens on or around August 31st.') }}</h2>
-<a href="{{ url_for('main.edit_profile') }}">{{ _('Opt in to email or text-message notifications of harvest day by editing your profile choices') }}</a>
-{% endblock %}

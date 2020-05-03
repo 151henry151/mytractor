@@ -75,7 +75,12 @@
             {% endfor %}
         {% endif %}
         {% endwith %}
-
+        {% with game_date_string = str(harvest.game_date()) %}
+            <h2>{{ _('The current in-game date is: ') }} {{ game_date_string }}</h2>
+        {% endwith %}
+        {% with time_until_harvest_string = str(harvest.time_until_harvest()) %}
+            <h3>{{ _('Harvest day will arrive in: ') }} {{ time_until_harvest_string }}</h3>
+        {% endwith %}
         {# application content needs to be provided in the app_content block #}
         {% block app_content %}{% endblock %}
     </div>
