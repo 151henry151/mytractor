@@ -1,9 +1,11 @@
 from app.sms import send_text
+from flask import render_template
 from app.harvest import game_date, time_until_harvest
 from datetime import timedelta
 import schedule
 from app.email import send_email
 import time
+from app.models import User
 from flask import current_app
 
 def get_subscribers():
@@ -51,7 +53,8 @@ def text_subscribers():
 
 
 def launch_schedule():
-    schedule.every(1).minutes.do(check_if_time_to_schedule_notices)
+    schedule.every(4).minutes.do(check_if_time_to_schedule_notices)
+    schedule_notices()
     while True:
         schedule.run_pending()
         time.sleep(1)
@@ -65,12 +68,14 @@ def check_if_time_to_schedule_notices():
                   recipient=current_app.config['ADMIN_PHONE'])
         return schedule.CancelJob
         schedule_notices()
-    else:
-        send_text(text_body='Schedule launcher checked and it is not time to launch the schedule yet.',
-                  recipient=current_app.config['ADMIN_PHONE'])
+#    else:
+#        send_text(text_body='Schedule launcher checked and it is not time to launch the schedule yet.',
+#                  recipient=current_app.config['ADMIN_PHONE'])
 
 
 def schedule_notices():
+    email_subscribers()
+    text_subscribers()
     schedule.every(60).hours.do(email_subscribers)
     schedule.every(60).hours.do(text_subscribers)
     while True:

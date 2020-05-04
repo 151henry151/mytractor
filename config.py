@@ -25,3 +25,4 @@ class Config(object):
     TWILIO_SID = os.environ.get('TWILIO_SID')
     TWILIO_TOKEN = os.environ.get('TWILIO_TOKEN')
     ADMIN_PHONE = os.environ.get('ADMIN_PHONE')
+    SYSTEM_PHONE = os.environ.get('SYSTEM_PHONE')
