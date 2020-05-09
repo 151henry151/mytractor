@@ -53,11 +53,10 @@ def text_subscribers():
 
 
 def launch_schedule():
-    schedule.every(4).minutes.do(check_if_time_to_schedule_notices)
-    schedule_notices()
+    schedule.every(8).minutes.do(check_if_time_to_schedule_notices)
     while True:
         schedule.run_pending()
-        time.sleep(1)
+        time.sleep(3)
 
 
 def check_if_time_to_schedule_notices():

@@ -18,9 +18,9 @@ def game_date():
 
 def time_until_harvest():
     """Calculates real-time minutes until in-game harvest date"""
-    harvest_day = datetime.strptime("1899 30 Aug", "%Y %d %b")  # harcoded because it does not change
+    harvest_day = datetime.strptime("1900 30 Aug", "%Y %d %b")  # harcoded because it does not change
     game_time_multiplier = 9.8630137 # in-game day takes just under 10 minutes of real time to pass
-    days_remaining = game_date() - harvest_day  # in-game days remaining until harvest day
+    days_remaining = harvest_day - game_date()  # in-game days remaining until harvest day
     minutes_remaining = days_remaining.days * game_time_multiplier  # converts game-days into real-minutes
     time_until_harvest = timedelta(minutes = int(minutes_remaining))
     return time_until_harvest  # timedelta of real time from now until in-game harvest
